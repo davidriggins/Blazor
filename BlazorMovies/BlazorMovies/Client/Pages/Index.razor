@@ -1,0 +1,19 @@
+﻿@page "/"
+
+<p>Hello, @CustomToUpper(name)</p>
+
+<p>Let's add 2 + 2 = @(2 + 2)</p>
+
+<button @onclick="@(() => Console.WriteLine("I've been clicked!"))">Click me</button>
+<button @onclick="@WriteInLog">Click me</button>
+
+@code{
+    string name = "David";
+
+    string CustomToUpper(string value) => value.ToUpper();
+
+    void WriteInLog()
+    {
+        Console.WriteLine("I've been clicked! (from method)");
+    }
+}
