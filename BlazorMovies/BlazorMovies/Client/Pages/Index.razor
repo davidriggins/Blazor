@@ -9,20 +9,28 @@
 
 <div>
     <h3>Movie</h3>
-    @foreach (var movie in movies)
+    @if (movies == null)
     {
-        <p>Title: <b>@movie.Title</b></p>
-        <p>Release Date: <b>@movie.ReleaseDate.ToString("dd MMM yyyy")</b></p>
+        <text>Loading...</text>
+    }
+    else
+    {
+        @foreach (var movie in movies)
+        {
+            <p>Title: <b>@movie.Title</b></p>
+            <p>Release Date: <b>@movie.ReleaseDate.ToString("dd MMM yyyy")</b></p>
+        }
+
+        @for (var i = 0; i < movies.Count; i++)
+        {
+            <div style="background-color: @(i % 2 == 0 ? "blue" : "red")">
+                <p>@(i+1) Title: <b>@movies[i].Title</b></p>
+                <p>Release Date: <b>@movies[i].ReleaseDate.ToString("dd MMM yyyy")</b></p>
+            </div>
+
+        }
     }
 
-    @for (var i = 0; i < movies.Count; i++)
-    {
-        <div style="background-color: @(i % 2 == 0 ? "blue" : "red")">
-            <p>@(i+1) Title: <b>@movies[i].Title</b></p>
-            <p>Release Date: <b>@movies[i].ReleaseDate.ToString("dd MMM yyyy")</b></p>
-        </div>
-
-    }
 </div>
 
 @code {
@@ -30,8 +38,11 @@
 
     List<Movie> movies;
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
+        // Simulate waiting for database
+        await Task.Delay(3000);
+
         movies = new List<Movie>()
         {
             new Movie(){Title = "Spider-Man: Far From Home", ReleaseDate = new DateTime(2019, 7, 2)},
