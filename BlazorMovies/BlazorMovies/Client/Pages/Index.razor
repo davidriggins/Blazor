@@ -9,13 +9,36 @@
 
 <div>
     <h3>Movie</h3>
-    <p>Title: <b>@spiderman.Title</b></p>
-    <p>Release Date: <b>@spiderman.ReleaseDate.ToString("dd MMM yyyy")</b></p>
+    @foreach (var movie in movies)
+    {
+        <p>Title: <b>@movie.Title</b></p>
+        <p>Release Date: <b>@movie.ReleaseDate.ToString("dd MMM yyyy")</b></p>
+    }
+
+    @for (var i = 0; i < movies.Count; i++)
+    {
+        <div style="background-color: @(i % 2 == 0 ? "blue" : "red")">
+            <p>@(i+1) Title: <b>@movies[i].Title</b></p>
+            <p>Release Date: <b>@movies[i].ReleaseDate.ToString("dd MMM yyyy")</b></p>
+        </div>
+
+    }
 </div>
 
 @code {
     string name = "David";
 
+    List<Movie> movies;
+
+    protected override void OnInitialized()
+    {
+        movies = new List<Movie>()
+        {
+            new Movie(){Title = "Spider-Man: Far From Home", ReleaseDate = new DateTime(2019, 7, 2)},
+            new Movie(){Title = "Moana", ReleaseDate = new DateTime(2016, 11, 23)},
+            new Movie(){Title = "Inception", ReleaseDate = new DateTime(2010, 7, 16)},
+        };
+    }
     Movie spiderman = new Movie()
         {
             Title = "Spider-Man: Far From Home",
