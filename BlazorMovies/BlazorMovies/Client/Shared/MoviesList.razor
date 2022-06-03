@@ -1,43 +1,22 @@
-﻿@if (movies == null)
+﻿@if (Movies == null)
 {
     <img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
     @*<text>Loading...</text>*@
 }
-else if (movies.Count == 0)
+else if (Movies.Count == 0)
 {
     <text>There are no records to show.</text>
 }
 else
 {
-    @foreach (var movie in movies)
+    @foreach (var movie in Movies)
     {
-        @*<p>Title: @((MarkupString)movie.Title)</p>*@
-        <p>Title: @movie.Title</p>
-        <p>Release Date: <b>@movie.ReleaseDate.ToString("dd MMM yyyy")</b></p>
+        <IndividualMovie Movie="movie"></IndividualMovie>
     }
 
-    @*@for (var i = 0; i < movies.Count; i++)
-        {
-        <div style="background-color: @(i % 2 == 0 ? "blue" : "red")">
-        <p>@(i+1) Title: <b>@movies[i].Title</b></p>
-        <p>Release Date: <b>@movies[i].ReleaseDate.ToString("dd MMM yyyy")</b></p>
-        </div>
-
-        }*@
 }
 @code {
-    List<Movie> movies;
+    [Parameter] 
+    public List<Movie> Movies { get; set; }
 
-    protected override void OnInitialized()
-    {
-        // Simulate waiting for database
-        //await Task.Delay(3000);
-
-        movies = new List<Movie>()
-        {
-            new Movie(){Title = "Spider-Man: Far From Home", ReleaseDate = new DateTime(2019, 7, 2)},
-            new Movie(){Title = "Moana", ReleaseDate = new DateTime(2016, 11, 23)},
-            new Movie(){Title = "Inception", ReleaseDate = new DateTime(2010, 7, 16)},
-        };
-    }
 }
