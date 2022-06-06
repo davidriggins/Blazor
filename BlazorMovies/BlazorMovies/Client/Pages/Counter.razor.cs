@@ -1,6 +1,7 @@
 ﻿using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using static BlazorMovies.Client.Shared.MainLayout;
 
 namespace BlazorMovies.Client.Pages
 {
@@ -9,6 +10,7 @@ namespace BlazorMovies.Client.Pages
         [Inject] SingletonService singleton { get; set; }
         [Inject] TransientService transient { get; set; }
         [Inject] IJSRuntime js { get; set; }
+        [CascadingParameter(Name ="AppState")] public AppState AppState { get; set; }
 
         private List<Movie> movies;
 

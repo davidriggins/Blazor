@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using static BlazorMovies.Client.Shared.MainLayout
 @inject SingletonService singleton
 @inject IRepository repository
 
@@ -10,7 +11,7 @@
     <button @onclick="@WriteInLog">Click me</button>
 *@
 
-<p>Singleton count: @singleton.Value</p>
+<p style="color: @AppState.Color">Singleton count: @singleton.Value</p>
 <div>
     <h3>Movie</h3>
     <MoviesList Movies="movies">
@@ -26,6 +27,7 @@
     <DummyTextBox @attributes="dummyTextboxParameters"></DummyTextBox>
 </div>
 @code {
+    [CascadingParameter(Name = "AppState")] public AppState AppState { get; set; }
 
     private List<Movie> movies;
     private Dictionary<string, object> dummyTextboxParameters = new Dictionary<string, object>() {
