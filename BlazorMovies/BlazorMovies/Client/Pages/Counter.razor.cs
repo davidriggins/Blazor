@@ -12,6 +12,8 @@ namespace BlazorMovies.Client.Pages
 
         private List<Movie> movies;
 
+        IJSObjectReference module;
+
         protected override void OnInitialized()
         {
 
@@ -31,6 +33,9 @@ namespace BlazorMovies.Client.Pages
         [JSInvokable]
         public async Task IncrementCount()
         {
+            module = await js.InvokeAsync<IJSObjectReference>("import", "./js/Counter.js");
+            await module.InvokeVoidAsync("displayAlert", "hello world");
+
             currentCount++;
             singleton.Value += 1;
             transient.Value += 1;
