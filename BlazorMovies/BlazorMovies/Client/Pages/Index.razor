@@ -1,4 +1,6 @@
 ﻿@page "/"
+@inject SingletonService singleton
+
 
 @*<p>Hello, @StringUtilities.CustomToUpper(name)</p>
 
@@ -8,7 +10,7 @@
     <button @onclick="@WriteInLog">Click me</button>
 *@
 
-
+<p>Singleton count: @singleton.Value</p>
 <div>
     <h3>Movie</h3>
     <MoviesList Movies="movies">
@@ -16,6 +18,7 @@
     </MoviesList>
 </div>
 
+<button @onclick="AddNewMovie">Add new movie</button>
 <div>
     <h2>Create a movie</h2>
 
@@ -42,6 +45,11 @@
             new Movie(){Title = "Moana", ReleaseDate = new DateTime(2016, 11, 23)},
             new Movie(){Title = "Inception", ReleaseDate = new DateTime(2010, 7, 16)},
         };
+    }
+
+    private void AddNewMovie()
+    {
+        movies.Add(new Movie() { Title = "Movie Sample", ReleaseDate = DateTime.Today });
     }
 
 }
