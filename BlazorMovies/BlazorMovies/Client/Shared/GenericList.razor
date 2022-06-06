@@ -1,0 +1,54 @@
+﻿@typeparam TItem
+
+@if (List == null)
+{
+    @*<img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />*@
+    @*<text>Loading...</text>*@
+    @if (NullTemplate != null)
+    {
+        @NullTemplate
+    }
+    else
+    {
+        // Default Content
+        <img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
+    }
+}
+else if (List.Count == 0)
+{
+    @if (EmptyTemplate != null)
+    {
+        @EmptyTemplate
+    }
+    else
+    {
+        // Default Content
+        <text>There are no records to show.</text>
+    }
+    
+}
+else
+{
+    @*<input type="checkbox" @onchange="@(() => displayButtons = !displayButtons)" />*@
+    
+
+
+    @foreach (var element in List)
+    {
+        @ElementTemplate(element)
+    }
+
+}
+
+
+
+@code {
+    [Parameter]
+    public RenderFragment NullTemplate { get; set; }
+    [Parameter]
+    public RenderFragment EmptyTemplate { get; set; }
+    [Parameter]
+    public List<TItem> List { get; set; }
+    [Parameter]
+    public RenderFragment<TItem> ElementTemplate { get; set; }
+}
