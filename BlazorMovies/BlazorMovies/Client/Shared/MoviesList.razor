@@ -2,68 +2,71 @@
 
 <input type="checkbox" @bind="displayButtons" />
 
-<GenericList List="Movies">
-    <ElementTemplate Context="movie" >
-        <IndividualMovie Movie="movie" DisplayButtons="displayButtons" DeleteMovie="DeleteMovie"></IndividualMovie>
-    </ElementTemplate>
-</GenericList>
+<div class="movies-container">
+	<GenericList List="Movies">
+		<ElementTemplate Context="movie">
+			<IndividualMovie Movie="movie" DisplayButtons="displayButtons" DeleteMovie="DeleteMovie"></IndividualMovie>
+		</ElementTemplate>
+	</GenericList>
+</div>
+
 
 <Confirmation @ref="confirmation" onCancel="onCancel" onConfirm="onConfirm">
-    <div>Do you wish to delete @movieToBeDeleted.Title?</div>
+	<div>Do you wish to delete @movieToBeDeleted.Title?</div>
 </Confirmation>
 
 @code {
-    Confirmation confirmation;
-    Movie movieToBeDeleted;
+	Confirmation confirmation;
+	Movie movieToBeDeleted;
 
-    [Parameter]
-    public List<Movie> Movies { get; set; }
+	[Parameter]
+	public List<Movie> Movies { get; set; }
 
-    bool displayButtons = false;
+	bool displayButtons = false;
 
-    private async Task DeleteMovie(Movie movie)
-    {
-        movieToBeDeleted = movie;
-        confirmation.Show();
-        //await js.MyFunction("custom message");
-        //var confirm = await js.Confirm($"Are you sure you want to delete {movie.Title}?");
+	private async Task DeleteMovie(Movie movie)
+	{
+		movieToBeDeleted = movie;
+		confirmation.Show();
+		//await js.MyFunction("custom message");
+		//var confirm = await js.Confirm($"Are you sure you want to delete {movie.Title}?");
 
-        //if (confirm)
-        //{
-        //    Movies.Remove(movie);
-    //}
-    }
+		//if (confirm)
+		//{
+		//    Movies.Remove(movie);
+		//}
+	}
 
-    void onConfirm()
-    {
-        Movies.Remove(movieToBeDeleted);
-        confirmation.Hide();
-        movieToBeDeleted = null;
-    }
+	void onConfirm()
+	{
+		Movies.Remove(movieToBeDeleted);
+		confirmation.Hide();
+		movieToBeDeleted = null;
+	}
 
-    void onCancel()
-    {
-        confirmation.Hide();
-        movieToBeDeleted = null;
-    }
+	void onCancel()
+	{
+		confirmation.Hide();
+		movieToBeDeleted = null;
+	}
 
-    protected override void OnInitialized()
-    {
-        Console.WriteLine("OnInitialized. Movies.Count = " + Movies.Count.ToString());
-    }
+	protected override void OnInitialized()
+	{
+		Console.WriteLine("OnInitialized. Movies.Count = " + Movies.Count.ToString());
+	}
 
-    protected override void OnParametersSet()
-    {
-        Console.WriteLine("OnParemetersSet. Movies.Count = " + Movies.Count.ToString());
-    }
+	protected override void OnParametersSet()
+	{
+		Console.WriteLine("OnParemetersSet. Movies.Count = " + Movies.Count.ToString());
+	}
 
-    protected override void OnAfterRender(bool firstRender)
-    {
-        Console.WriteLine("OnAfterRender. FirstRender = " + firstRender.ToString());
-    }
+	protected override void OnAfterRender(bool firstRender)
+	{
+		Console.WriteLine("OnAfterRender. FirstRender = " + firstRender.ToString());
+	}
 
-    protected override bool ShouldRender()
-    {
-        return true;
-    }
+	protected override bool ShouldRender()
+	{
+		return true;
+	}
 }

@@ -1,7 +1,10 @@
 ﻿
-<div>
-    <p>Title: @Movie.Title</p>
-    <p>Release Date: <b>@Movie.ReleaseDate.ToString("dd MMM yyyy")</b></p>
+<div class="individual-movie-container">
+    <a>
+        <img src="@Movie.Poster" alt="Poster" class="movie-poster" />
+    </a>
+    <p>Title: @Movie.TitleBrief</p>
+    @*<p>Release Date: <b>@Movie.ReleaseDate.ToString("dd MMM yyyy")</b></p>*@
     @if (DisplayButtons)
     {
         <div>
