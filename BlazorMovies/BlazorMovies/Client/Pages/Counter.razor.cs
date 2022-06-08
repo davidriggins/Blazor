@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using static BlazorMovies.Client.Shared.MainLayout;
+using MathNet.Numerics.Statistics;
 
 namespace BlazorMovies.Client.Pages
 {
@@ -35,8 +36,12 @@ namespace BlazorMovies.Client.Pages
         [JSInvokable]
         public async Task IncrementCount()
         {
+            var array = new double[] { 1, 2, 3, 4, 5 };
+            var max = array.Maximum();
+            var min = array.Minimum();
+
             module = await js.InvokeAsync<IJSObjectReference>("import", "./js/Counter.js");
-            await module.InvokeVoidAsync("displayAlert", "hello world");
+            await module.InvokeVoidAsync("displayAlert", $"Max is {max} and min is {min}");
 
             currentCount++;
             singleton.Value += 1;
