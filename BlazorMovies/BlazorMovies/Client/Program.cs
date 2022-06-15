@@ -1,5 +1,6 @@
 using BlazorMovies.Client;
 using BlazorMovies.Client.Helpers;
+using BlazorMovies.Client.Repository;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -18,4 +19,7 @@ static void ConfigureServices(IServiceCollection services)
     services.AddSingleton<SingletonService>();
     services.AddTransient<TransientService>();
     services.AddSingleton<IRepository, RepositoryInMemory>();
+
+    services.AddScoped<IHttpService, HttpService>();
+    services.AddScoped<IGenreRepository, GenreRepository>();
 }
