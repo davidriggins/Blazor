@@ -26,6 +26,14 @@
     @*<DummyTextBox placeholder="Movie name" disabled="true"></DummyTextBox>*@
     <DummyTextBox @attributes="dummyTextboxParameters"></DummyTextBox>
 </div>
+
+<CustomTypeahead SearchMethod="SearchMethod">
+    <ResultTemplate>
+        @context
+    </ResultTemplate>
+</CustomTypeahead>
+
+
 @code {
     [CascadingParameter(Name = "AppState")] public AppState AppState { get; set; }
 
@@ -47,6 +55,13 @@
     private void AddNewMovie()
     {
         movies.Add(new Movie() { Title = "Movie Sample", ReleaseDate = DateTime.Today });
+    }
+
+    private async Task<IEnumerable<string>> SearchMethod(string searchText)
+    {
+        await Task.Delay(2000);
+        if (searchText == "test") { return Enumerable.Empty <string>(); }
+        return new List<string>() { "Felipe", "Gavilanch2" };
     }
 
 }
