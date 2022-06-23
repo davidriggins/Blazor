@@ -22,20 +22,25 @@ else if (List.Count == 0)
     }
     else
     {
-        // Default Content
+                    // Default Content
         <text>There are no records to show.</text>
     }
-    
+
 }
 else
 {
     @*<input type="checkbox" @onchange="@(() => displayButtons = !displayButtons)" />*@
-    
 
-
-    @foreach (var element in List)
+    @if (ElementTemplate != null)
     {
-        @ElementTemplate(element)
+        @foreach (var element in List)
+        {
+            @ElementTemplate(element)
+        }
+    }
+    else
+    {
+        @WholeListTemplate
     }
 
 }
@@ -43,12 +48,9 @@ else
 
 
 @code {
-    [Parameter]
-    public RenderFragment NullTemplate { get; set; }
-    [Parameter]
-    public RenderFragment EmptyTemplate { get; set; }
-    [Parameter]
-    public List<TItem> List { get; set; }
-    [Parameter]
-    public RenderFragment<TItem> ElementTemplate { get; set; }
+    [Parameter] public RenderFragment NullTemplate { get; set; }
+    [Parameter] public RenderFragment EmptyTemplate { get; set; }
+    [Parameter] public RenderFragment WholeListTemplate { get; set; }
+    [Parameter] public List<TItem> List { get; set; }
+    [Parameter] public RenderFragment<TItem> ElementTemplate { get; set; }
 }
