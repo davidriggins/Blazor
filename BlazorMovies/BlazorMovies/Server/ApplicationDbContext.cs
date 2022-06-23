@@ -14,7 +14,7 @@ namespace BlazorMovies.Server
         {
             // Use composite key for these tables
             modelBuilder.Entity<MoviesActors>().HasKey(x => new { x.MovieId, x.PersonId });
-            modelBuilder.Entity<MoviesGenres>().HasKey(x => new { x.MovieId, x.GenresId });
+            modelBuilder.Entity<MoviesGenres>().HasKey(x => new { x.MovieId, x.GenreId });
 
 
             base.OnModelCreating(modelBuilder);

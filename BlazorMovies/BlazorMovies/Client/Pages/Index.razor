@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using static BlazorMovies.Client.Shared.MainLayout
 @inject SingletonService singleton
-@inject IRepository repository
+@inject IMoviesRepository moviesRepository
 
 @*<p>Hello, @StringUtilities.CustomToUpper(name)</p>
 
@@ -13,55 +13,68 @@
 
 <p style="color: @AppState.Color">Singleton count: @singleton.Value</p>
 <div>
-    <h3>Movie</h3>
-    <MoviesList Movies="movies">
+    <h3>In Theaters</h3>
+    <MoviesList Movies="InTheaters">
 
     </MoviesList>
 </div>
 
-<button @onclick="AddNewMovie">Add new movie</button>
 <div>
-    <h2>Create a movie</h2>
+    <h3>Upcoming Releases</h3>
+    <MoviesList Movies="UpcomingReleases">
 
-    @*<DummyTextBox placeholder="Movie name" disabled="true"></DummyTextBox>*@
-    <DummyTextBox @attributes="dummyTextboxParameters"></DummyTextBox>
+    </MoviesList>
 </div>
 
-<CustomTypeahead SearchMethod="SearchMethod">
+@*<button @onclick="AddNewMovie">Add new movie</button>
+<div>
+    <h2>Create a movie</h2>*@
+
+    @*<DummyTextBox placeholder="Movie name" disabled="true"></DummyTextBox>*@
+  @*  <DummyTextBox @attributes="dummyTextboxParameters"></DummyTextBox>
+</div>*@
+
+@*<CustomTypeahead SearchMethod="SearchMethod">
     <ResultTemplate>
         @context
     </ResultTemplate>
-</CustomTypeahead>
+</CustomTypeahead>*@
 
 
 @code {
     [CascadingParameter(Name = "AppState")] public AppState AppState { get; set; }
 
-    private List<Movie> movies;
-    private Dictionary<string, object> dummyTextboxParameters = new Dictionary<string, object>() {
-                                    { "placeholder", "New movie name"},
-                                    { "disabled", "true"}
-                                    };
+    private List<Movie> InTheaters;
+    private List<Movie> UpcomingReleases;
 
-    protected override void OnInitialized()
+    //private Dictionary<string, object> dummyTextboxParameters = new Dictionary<string, object>() {
+    //                                { "placeholder", "New movie name"},
+    //                                { "disabled", "true"}
+    //                                };
+
+    protected override async Task OnInitializedAsync()
     {
 
         // Simulate waiting for database
         //await Task.Delay(3000);
 
-        movies = repository.GetMovies();
+        //movies = repository.GetMovies();
+
+        var response = await moviesRepository.GetIndexPageDTO();
+        InTheaters = response.InTheaters;
+        UpcomingReleases = response.UpcomingReleases;
     }
 
-    private void AddNewMovie()
-    {
-        movies.Add(new Movie() { Title = "Movie Sample", ReleaseDate = DateTime.Today });
-    }
+    //private void AddNewMovie()
+    //{
+    //    movies.Add(new Movie() { Title = "Movie Sample", ReleaseDate = DateTime.Today });
+    //}
 
-    private async Task<IEnumerable<string>> SearchMethod(string searchText)
-    {
-        await Task.Delay(2000);
-        if (searchText == "test") { return Enumerable.Empty <string>(); }
-        return new List<string>() { "Felipe", "Gavilanch2" };
-    }
+    //private async Task<IEnumerable<string>> SearchMethod(string searchText)
+    //{
+    //    await Task.Delay(2000);
+    //    if (searchText == "test") { return Enumerable.Empty <string>(); }
+    //    return new List<string>() { "Felipe", "Gavilanch2" };
+    //}
 
 }

@@ -26,6 +26,19 @@ namespace BlazorMovies.Server.Controllers
             return await context.Actors.ToListAsync();
         }
 
+        [HttpGet("search/{searchText}")]
+        public async Task<ActionResult<List<Person>>> FilterByName(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return new List<Person>();
+            }
+
+            return await context.Actors.Where(a => a.Name == searchText)
+                .Take(5)
+                .ToListAsync();
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> Post(Person person)
         {
