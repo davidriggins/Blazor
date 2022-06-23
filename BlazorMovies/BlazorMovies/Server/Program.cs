@@ -16,7 +16,9 @@ builder.Services.AddScoped<IFileStorageService, InAppStorageService>();
 // This was added with the InAppStorageService
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options => 
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
