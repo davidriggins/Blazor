@@ -8,6 +8,7 @@
     @if (DisplayButtons)
     {
         <div>
+            <a class="btn btn-info" href="/movies/edit/@Movie.Id">Edit</a>
             @*<button @onclick="Delete">Delete</button>*@
             <button @onclick="@(() => DeleteMovie.InvokeAsync(Movie))">Delete</button>
         </div>
