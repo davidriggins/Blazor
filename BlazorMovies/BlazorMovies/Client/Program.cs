@@ -18,9 +18,11 @@ static void ConfigureServices(IServiceCollection services)
 {
     services.AddSingleton<SingletonService>();
     services.AddTransient<TransientService>();
+
     services.AddSingleton<IRepository, RepositoryInMemory>();
 
     services.AddScoped<IHttpService, HttpService>();
     services.AddScoped<IGenreRepository, GenreRepository>();
     services.AddScoped<IPersonRespository, PersonRepository>();
+    services.AddScoped<IMoviesRepository, MoviesRepository>();
 }

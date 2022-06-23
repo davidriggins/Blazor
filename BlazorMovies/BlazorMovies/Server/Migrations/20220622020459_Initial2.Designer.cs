@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorMovies.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220615193007_Initial")]
-    partial class Initial
+    [Migration("20220622020459_Initial2")]
+    partial class Initial2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -150,13 +150,13 @@ namespace BlazorMovies.Server.Migrations
             modelBuilder.Entity("BlazorMovies.Shared.Entities.MoviesActors", b =>
                 {
                     b.HasOne("BlazorMovies.Shared.Entities.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("MoviesActors")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BlazorMovies.Shared.Entities.Person", "Person")
-                        .WithMany()
+                        .WithMany("MoviesActors")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -192,7 +192,14 @@ namespace BlazorMovies.Server.Migrations
 
             modelBuilder.Entity("BlazorMovies.Shared.Entities.Movie", b =>
                 {
+                    b.Navigation("MoviesActors");
+
                     b.Navigation("MoviesGenres");
+                });
+
+            modelBuilder.Entity("BlazorMovies.Shared.Entities.Person", b =>
+                {
+                    b.Navigation("MoviesActors");
                 });
 #pragma warning restore 612, 618
         }

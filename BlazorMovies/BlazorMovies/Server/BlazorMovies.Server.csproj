@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\movies\" />
   </ItemGroup>
 
 
