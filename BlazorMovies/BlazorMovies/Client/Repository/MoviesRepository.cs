@@ -16,24 +16,14 @@ namespace BlazorMovies.Client.Repository
 
         public async Task<IndexPageDTO> GetIndexPageDTO()
         {
-            return await Get<IndexPageDTO>(url);
+            return await httpService.GetHelper<IndexPageDTO>(url);
         }
 
         public async Task<DetailsMovieDTO> GetDetailsMovieDTO(int id)
         {
-            return await Get<DetailsMovieDTO>($"{url}/{id}");
+            return await httpService.GetHelper<DetailsMovieDTO>($"{url}/{id}");
         }
 
-        private async Task<T> Get<T>(string url)
-        {
-            var response = await httpService.Get<T>(url);
-            if (!response.Success)
-            {
-                throw new ApplicationException(await response.GetBody());
-            }
-
-            return response.Response;
-        }
 
         public async Task<int> CreateMovie(Movie movie)
         {
