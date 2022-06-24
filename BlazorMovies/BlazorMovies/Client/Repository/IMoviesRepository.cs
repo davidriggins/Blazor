@@ -12,5 +12,6 @@ namespace BlazorMovies.Client.Repository
         Task<DetailsMovieDTO> GetDetailsMovieDTO(int id);
         Task UpdateMovie(Movie movie);
         Task DeleteMovie(int Id);
+        Task<PaginatedResponse<List<Movie>>> GetMoviesFiltered(FilterMoviesDTO filterMoviesDTO);
     }
 }
