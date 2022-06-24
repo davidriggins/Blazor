@@ -6,7 +6,7 @@
 <div class="movies-container">
 	<GenericList List="Movies">
 		<ElementTemplate Context="movie">
-			<IndividualMovie Movie="movie" DisplayButtons="displayButtons" DeleteMovie="DeleteMovie"></IndividualMovie>
+			<IndividualMovie Movie="movie" DisplayButtons="displayButtons" DeleteMovie="DeleteMovie" @key="movie.Id"></IndividualMovie>
 		</ElementTemplate>
 	</GenericList>
 </div>
